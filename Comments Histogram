@@ -1,0 +1,14 @@
+Write a SQL query to create a histogram of the number of comments per user in the month of January 2020.
+
+WITH cte as (SELECT u.id,
+SUM(CASE WHEN user_id IS NULL THEN 0 ELSE 1 END) as comment_count
+FROM users u 
+LEFT JOIN (SELECT * FROM comments WHERE created_at>=date'2020-01-01' and created_at<=date'2020-01-31') as c 
+ON u.id = c.user_id 
+GROUP BY 1) 
+SELECT comment_count, COUNT(*) as frequency 
+FROM cte
+GROUP BY 1
+
+
+https://www.interviewquery.com/questions/comments-histogram
