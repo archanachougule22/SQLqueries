@@ -1,0 +1,11 @@
+Random SQL Sample
+
+WITH numbered_rows AS (
+SELECT *, ROW_NUMBER() OVER() - 1 AS row_num
+FROM big_table
+)
+
+SELECT id, name
+FROM numbered_rows
+WHERE row_num = (SELECT FLOOR(RAND()*MAX(row_num)) FROM numbered_rows)
+
