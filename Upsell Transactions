@@ -1,0 +1,19 @@
+Upsell Transactions
+
+Write a query to get the number of customers that were upsold by purchasing additional products.
+
+Assumptions-
+  •	“upsell” is purchasing an additional product after purchasing a first product
+  •	the additional product(s) must be purchased on a later date (ie. not the same day as the first product)
+  •	the additional “upsell” product(s) can be the same type of product (product_id) as the first product
+  
+SQL Query-
+select
+count(distinct t1.user_id) as num_of_upsold_customers
+from
+transactions t1
+inner join transactions t2
+on t1.user_id = t2.user_id
+and date(t1.created_at) < date(t2.created_at)
+
+https://www.interviewquery.com/questions/upsell-transactions
