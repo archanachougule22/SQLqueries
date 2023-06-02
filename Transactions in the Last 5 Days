@@ -1,0 +1,22 @@
+Transactions in the Last 5 Days
+
+WITH user_num_transactions AS (
+    SELECT
+        user_id,
+        COUNT(DISTINCT day(created_at)) as num_days
+    FROM
+        bank_transactions
+    WHERE
+        created_at BETWEEN '2020-01-01' AND '2020-01-06'
+    GROUP BY
+        user_id
+)
+
+SELECT
+    COUNT(DISTINCT user_id) AS number_of_users
+FROM
+    user_num_transactions
+WHERE
+    num_days = 5
+
+https://www.interviewquery.com/questions/transactions-in-the-last-5-days
