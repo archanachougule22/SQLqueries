@@ -1,0 +1,13 @@
+Write a query to get the total three-day rolling average for deposits by day.
+
+SELECT t1.dt,
+        AVG(day_sum) OVER(ORDER BY dt ASC ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) AS rolling_three_day
+FROM(
+        SELECT DATE_FORMAT(created_at, '%Y-%m-%d') AS dt,
+                SUM(transaction_value) AS day_sum
+        FROM bank_transactions
+        WHERE transaction_value > 0
+        GROUP BY 1
+        ) AS t1
+
+https://www.interviewquery.com/questions/rolling-bank-transactions
