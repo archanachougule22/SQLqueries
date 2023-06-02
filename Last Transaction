@@ -1,0 +1,10 @@
+Last Transaction
+write a query to get the last transaction for each day.
+
+SELECT * FROM bank_transactions WHERE created_at IN
+(
+	SELECT MAX(created_at) AS maxdate FROM bank_transactions
+	GROUP BY DATE(created_at)
+)
+
+https://www.interviewquery.com/questions/last-transaction
